@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+var DB, TestDB *gorm.DB
 
 func ConnectToDB() {
 	var err error
