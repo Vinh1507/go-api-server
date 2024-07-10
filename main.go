@@ -13,6 +13,7 @@ import (
 func init() {
 	initializers.LoadEnvVariables()
 	initializers.ConnectToDB()
+	initializers.ConnectToEtcd()
 	migrate.Migrate()
 }
 func main() {
@@ -26,6 +27,10 @@ func main() {
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
 	r.GET("/validate", middlewares.RequireAuth, middlewares.RoleAuth, controllers.Validate)
+
+	r.POST("/etcd-put", controllers.EtcdPut)
+	r.GET("/etcd-get-prefix", controllers.EtcdGetByPrefix)
+
 	port := os.Getenv("PORT")
 	r.Run(port)
 }
