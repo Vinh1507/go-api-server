@@ -25,5 +25,3 @@ services:
       POSTGRES_PASSWORD: gobank
       POSTGRES_HOST: go-postgres
       POSTGRES_PORT: 5432
-    depends_on:
-      - go-postgres

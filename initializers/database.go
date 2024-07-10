@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -20,7 +21,15 @@ func ConnectToDB() {
 		os.Getenv("POSTGRES_DB"),
 		os.Getenv("POSTGRES_PORT"),
 	)
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	for i := 0; i <= 30; i++ {
+		DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		if err == nil {
+			break
+		}
+		fmt.Printf("failed to open database: %v\n", err)
+		time.Sleep(500 * time.Millisecond)
+	}
 
 	if err != nil {
 		log.Fatal("Failed to connect db")
