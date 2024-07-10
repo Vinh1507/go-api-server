@@ -4,6 +4,7 @@ import (
 	"go-api-server/controllers"
 	"go-api-server/initializers"
 	"go-api-server/middlewares"
+	"go-api-server/migrate"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -12,6 +13,7 @@ import (
 func init() {
 	initializers.LoadEnvVariables()
 	initializers.ConnectToDB()
+	migrate.Migrate()
 }
 func main() {
 	r := gin.Default()
